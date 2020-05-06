@@ -1,0 +1,133 @@
+//Computing1 Lab5
+#include<iostream>
+using namespace std;
+void task1();
+void task2();
+void task3();//and task4
+void displaybit(int);//task1,task2,task3
+int power2(int, int);//task2
+unsigned packCharacters(char, char, char, char);//task3
+void unpackCharacters(unsigned);//task3 and 4
+int main()
+{
+	int task;
+	cout << "Input task number:";
+	cin >> task;
+	switch(task)
+	{ 
+	case(1):
+		task1();
+		break;
+	case(2):
+		task2();
+		break;
+	case(3):
+		task3();
+		break;
+	default:
+		cout << "Invalid task input" << endl;
+		break;
+	}
+	return 0;
+}
+void task1()
+{
+	int number;
+	cout << "Enter an integer:";
+	cin >> number;
+	cout << "Before right shifting 4 bits" << endl;
+	displaybit(number);
+	cout << "After right shifting 4 bits" << endl;
+	number >>= 4;
+	displaybit(number);
+	return;
+}
+void displaybit(int number)
+{
+	unsigned Mark{ static_cast<unsigned> (1 << 31) };
+	cout << number << "=";
+	for (int i = 1; i <= 32; i++)
+	{
+		cout << (number & Mark ? '1' : '0');
+		number <<= 1;
+		if (i % 8 == 0)
+			cout << " ";
+	}
+	cout << endl;
+	return;
+}
+void task2()
+{
+	int number, power;
+	cout << "Enter two integers:";
+	cin >> number >> power;
+	cout << "number:" << endl;
+	displaybit(number);
+	cout << "power:" << endl;
+	displaybit(power);
+	displaybit(power2(number, power));
+	return;
+}
+int power2(int number, int power)
+{
+	int result = number << power;
+	cout << number << "*2^" << power << "=" << result << endl;
+	return result;
+}
+void task3()
+{
+	char a, b, c, d;
+	cout << "Enter 4 characters:";
+	cin >> a;
+	cin >> b;
+	cin >> c;
+	cin >> d;
+	cout << endl;
+	cout << "'" << a << "'" << "in bits as an unsigned integer is:" << endl;
+	displaybit(a);
+	cout << "'" << b << "'" << "in bits as an unsigned integer is:" << endl;
+	displaybit(b);
+	cout << "'" << c << "'" << "in bits as an unsigned integer is:" << endl;
+	displaybit(c);
+	cout << "'" << d << "'" << "in bits as an unsigned integer is:" << endl;
+	displaybit(d);
+	cout << "\nThe Characters packed in unsigned integers:" << endl;
+	displaybit(packCharacters(a, b, c, d));
+	cout << "\nThe unpack characters are:";
+	unpackCharacters(packCharacters(a, b, c, d));
+	return ;
+}
+unsigned packCharacters(char a, char b, char c, char d)
+{
+	unsigned pack = static_cast<unsigned>(a);
+	pack <<= 8;
+	pack |= static_cast<unsigned>(b);
+	pack <<= 8;
+	pack |= static_cast<unsigned>(c);
+	pack <<= 8;
+	pack |= static_cast<unsigned>(d);
+	return pack;
+}
+void unpackCharacters(unsigned num)
+{
+	unsigned a, b, c, d;
+	a = num & 4278190080;
+	a = a >> 24;
+	//displaybit(a);
+	b = num & 16711680;
+	b = b >> 16;
+	//displaybit(b);
+	c = num & 65280;
+	c = c >> 8;
+	//displaybit(c);
+	d = num & 255;
+	//displaybit(d);
+	cout << static_cast<char> (a) << " " << static_cast<char> (b)
+		<< " " << static_cast<char>(c) << " " << static_cast<char>(d) << endl;
+	cout << "\nThe unpack characters in bits are:" << endl;
+	displaybit(a);
+	displaybit(b);
+	displaybit(c);
+	displaybit(d);
+	return;
+}
