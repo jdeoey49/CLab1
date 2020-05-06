@@ -1,0 +1,218 @@
+// ConsoleApplication1.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <stdio.h>
+#include <iostream>
+#include <limits>
+#include <iomanip>
+#include <bitset>
+using namespace std;
+
+void task1() {	
+	//some random text
+	cout << "Starting Task 1" << endl;
+	//create a variable of type integer with the name number 
+	//and we do not initiate it with a value
+	//it will later be used to store our data
+	int number;
+	//some text and read something from cmd line 
+	//and put the value into the variable number
+	cout << "Give me a number please: ";
+	cin >> number;
+	//decide whether the number is even or odd
+	if (number % 2 == 0) {
+		//print out this text if number is even 
+		cout << "The number " << number << " is even"<<endl;
+	}
+	else {
+		//print out this text if number is odd 
+		cout << "The number " << number << " is odd" << endl;
+	}
+	cout << "Task 1 Finished" << endl;
+	cout << endl;
+}
+
+void task2() {
+	//some random text
+	cout << "Starting Task 2" << endl;
+	//give the header in the way it is  stated in the task description
+	cout << "Decimal\t" << "Octal\t" << "Hexadecimal" << endl;
+	//the numbers we should show range
+	//from 1 and go to 256 as stated in task description
+	for (int counter = 1; counter <= 256; counter++) {
+		//convert the number to dec, oct and hex and print them out
+		cout << dec << counter << "\t"<< oct << counter << "\t"<< hex << counter << endl;
+		cout << "In binary format: " << bitset<32>(counter)<<endl;
+	}
+	cout << "Task 2 Finished" << endl;
+	cout << endl;
+}
+
+void task3() {
+	//create a variable with the name symbol of the type character
+	//and init it with the character A this avoid random default values of symbol
+	char symbol = 'A';
+	//some random text
+	cout << "Starting Task 3" << endl;
+	//flush cin
+	//set stdin to another position
+	//if we dont flush our storage in the next cin 
+	//we would read and use the values which have not yet been taken from cin variable
+	//further information about fseek can be found by googling
+	fseek(stdin, 0, SEEK_END);
+	cin.clear();
+	//read a character from cmd and store it into symbol it has 8Bit 
+	//if we right a 16 bit value on it so only the first 8 bit of the value get stored
+	cout << "Give me a character please: ";	
+	cin >> symbol;
+	if (cin.eof() || (symbol == '\n') || (symbol == '\t') || (symbol == ' '))
+	{
+		cout << "You broke my beautiful loop before it even began" << endl;
+		cout << "because you enter an invalid value" << endl;		
+	}
+	//read characters till the given conditions are fulfilled
+	//for example you can input z + strg which will match the given condition
+	//and will therefor break the loop
+	while (!cin.eof() && (symbol != '\n') && (symbol != '\t') && (symbol != ' ')) {		
+		cout <<"Symbol read from keyboard was: "<< symbol<<" ";
+		cout <<"It has the following int representation: "<< static_cast< int >(symbol)<<endl;
+		cout << endl;	
+		//get me a new character so lets ask our user for one with this line
+		cout << "Give me a character please: ";
+		//flush cin again 
+		fseek(stdin, 0, SEEK_END);
+		cin.clear();
+		//and use getchar to get the next char from cmd
+		if((symbol = getchar()) == EOF) {	
+			//break loop if eof
+			cout << "You broke my beautiful loop" << endl;
+			cout << "because you enter an invalid value" << endl;
+			break;
+		}
+		//the solution using cin would look like this and replace the if statement above
+		//cin >> symbol
+	}
+	cout << "Task 3 Finished" << endl;
+	cout << endl;
+}
+
+void task4() {
+	//create a variable of type char and name symbol and init it with A
+	char symbol = 'A';
+	// Possibly some other code here
+	cout << "Starting Task 4" << endl;
+	//some variable of the type int
+	//int i = 0;
+	do {
+		/*one way to flush cin
+		if (i == 0) {
+			cin.clear();
+			i++;
+		}
+		else {
+			cin.clear();
+			cin.ignore(INT_MAX, '\n');
+		}*/
+		//other way to flush cin from previous inputs
+		fseek(stdin, 0, SEEK_END);
+		cin.clear();
+		//read from cmd and store the value inside symbol
+		//cin ignores invalid inputs like pressing enter and waits till at least something
+		//which looks like a char gets put in by the user
+		cout << "Please enter a character: ";
+		symbol = cin.get();
+		//check for condition to abroad
+		if ((symbol == '\n') ||	(symbol == '\t') ||	(symbol == ' ') || cin.eof()) {
+			cout << "You broke my beautiful loop" << endl;
+			cout << "because you enter an invalid value" << endl;
+			break;
+		}
+		else {
+			cout <<"You entered " <<symbol<<" "<<static_cast< int >(symbol)<<endl;
+		}			
+	} while (!cin.eof());
+	cout << "Task 4 Finished" << endl;
+	cout << endl;
+}
+
+void task5() {
+	// Possibly some other code here
+	cout << "Starting Task 5" << endl;
+	//two digits after the point 
+	//cout will stay with precision 2 till some other config is evoked
+	//but be careful numbers are not rounded just cut of at digit 2 after the dot!
+	cout << fixed << setprecision(2);
+	//create variables to store the data
+	//kmdriven is current amount of km
+	double kmdriven;
+	//gas is current amount of gas
+	double gas;
+	//sumkm will store total km driven 
+	double sumkm = 0;
+	//sumgas will store total gas usage
+	double sumgas = 0;
+	do {		
+		//store the read value into kmdriven
+		cout << "How far did you drive: ";
+		//cinget is strong than cinchar
+		//because cinget also can handle none character values from cmd
+		//flush cin
+		fseek(stdin, 0, SEEK_END);
+		cin.clear();	
+		kmdriven = cin.get(); 
+		//jump out if bad char was given
+		if (cin.eof() || (kmdriven == '\t') || (kmdriven == ' ') || (kmdriven == '\n')) {
+			cout << "You are leaving the function" << endl;
+			cout << "because you enter an invalid value for your driven km" << endl;
+			break;
+		}
+		else if (kmdriven < 0) {
+			cout << "You are leaving the function" << endl;
+			cout << "because you enter an negative value for your driven km" << endl;
+			break;
+		}
+		//sum total kmgriven
+		sumkm += kmdriven;			
+		cout << "How much gas did you require for that trip: ";
+		//store the read value into gas
+		//if you enter character symbols after your number they will be ignored
+		//if you start your input with a character symbol it will be converted 
+		//into its asccii code number and this number will be used
+		//flush cin
+		fseek(stdin, 0, SEEK_END);
+		cin.clear();
+		cin >> gas;		
+		//jump out if bad char was given
+		if (cin.eof() || (gas == '\t') || (gas == ' ')||(gas == '\n')) {
+			cout << "You are leaving the function" << endl;
+			cout << "because you enter an invalid value for your gas usage"<<endl;
+			break;
+		}	
+		else if (gas < 0) {
+			cout << "You are leaving the function" << endl;
+			cout << "because you enter an negative value for your gas usage" << endl;
+			break;
+		}
+		//sum total gas
+		sumgas += gas;		
+		//print our stuff
+		cout << "You have driven "<< sumkm << " km in total and it took you "<< sumgas << " litre(s) of gas"<<endl;
+		cout << "Your current litre / 100 km consumption is : " << sumgas / (sumkm / 100) << endl;
+		cout << endl;
+	} while (!cin.eof());
+	cout << "Task 5 Finished" << endl;
+}
+//all the fun stuff happens in the main function
+// but all the party guest have to be defined before they can show up in the main function
+int main()
+{
+	task1();
+	task2();
+	task3();
+	task4();
+	task5();
+	while (1) {}
+    return 0;
+}
+
