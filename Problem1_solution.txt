@@ -1,0 +1,89 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+/*
+int main()//problem 1
+{
+	int a, b;
+	cout << "Input two numbers: ";
+	cin >> a >> b;
+	cout << "The sum is:"<<a+b<<endl;
+	cout << "The difference is:"<<a-b<<endl;
+	cout << "The product is:"<<a*b<<endl;
+	cout << "The quotient is:"<<a/b<<endl;
+	system("pause");
+	return 1;
+}
+*/
+/*
+int main()//Problem 2
+{
+	int a, b;
+	cout << "Input two numbers: ";
+	cin >> a >> b;
+	if (a > b)
+	{
+		cout <<a<<" is larger" << endl;
+	}
+	if (a < b)
+	{
+		cout << b << " is larger" << endl;
+    }
+	else
+	{
+		cout << "The two numbers are equal" << endl;
+	}
+	system("pause");
+	return 2;
+}
+*/
+/*
+int main()//Problem 3
+{
+	int radius;
+	cout << "Inout radius: ";
+	cin >> radius;
+	cout << "Diameter is " << radius * 2 << endl;
+	cout << "Circumference is " << radius *2*3.14159 << endl;
+	cout << "Area is " << pow(radius, 2)*3.14159 << endl;
+	system("pause");
+	return 3;
+}
+*/
+/*
+int main()//Problem 4
+{
+	int a, b, c;
+	cout << "Input three numbers: ";
+	cin >> a >> b>>c;
+	cout << "The sum is:" << a + b+c << endl;
+	cout << "The product is:" << a * b*c << endl;
+	cout << "The average is:" << (a + b + c)/3 << endl;
+	if (a > b)
+	{
+		if (a > c)
+		{
+			cout << "The largest is " << a << endl;
+		}
+		else 
+		{
+			cout << "The largest is " << c << endl;
+		}
+
+	}
+	else
+	{
+		if (b > c)
+		{
+			cout << "The largest is " << b << endl;
+		}
+		else
+		{
+			cout << "The largest is " << c << endl;
+		}
+	}
+	system("pause");
+	return 4;
+
+}
+*/
