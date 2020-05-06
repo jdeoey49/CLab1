@@ -1,6 +1,6 @@
 # CLab1
 Content
-/*****************************************/
+/*****************************************************/
 01 Introduction to Computing
 02 Representation & Interpretation of binary number
 03 Calculating using binary number
@@ -12,19 +12,19 @@ Content
 09 Control Statements 2
 10 Function in C++ 1
 11 Function in C++ 2
-1. Recap Last Lecture and additional Material 
+	1. Recap Last Lecture and additional Material 
 	• Case Study: Random Number Generation 
 	• Case Study: Game of Chance; introducing enum
-2. Functions in C++ - Part 2 
+	2. Functions in C++ - Part 2 
 	• Storage Classes
 	• Scope Rules 
-	//• Function Call Stack and Stack Frames 
+	• Function Call Stack and Stack Frames 
 	• Functions with Empty Parameter Lists 
 	• References and Reference Parameters 
 	• Default Arguments 
 	• Function Overloading 
 	• Function Templates
-3. Summary
+	3. Summary
 12 C- Array
 	1. Recap Last Lecture 
 	2. C-style Arrays (C-Arrays)
@@ -47,4 +47,4 @@ Content
 		• Pass-by-Reference 
 		• Pass-by-Address
 	6. Command Line Arguments
-  7. Summary
+  	7. Summary
