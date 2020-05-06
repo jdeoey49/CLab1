@@ -1,0 +1,188 @@
+//Computing 1 Lab3
+#include<iostream>
+#include<cmath>//sqrt()
+#include<iomanip>//setprecision(n)
+using namespace std;
+bool isEven(int num)// isEven function for problem 1
+{
+	if (num % 2 == 0)
+		return 1;
+	else
+		return 0;
+}
+bool multiple(int num1, int num2)//multiple function for problem 2
+{
+	if (num1 == 0)
+		return 0;
+	else if (num2 % num1 != 0)
+		return 0;
+	else
+		return 1;
+}
+double hypotenuse(double num1, double num2)//hypotenuse function for problem 3
+{
+	double ans;
+	ans = sqrt(num1*num1 + num2 * num2);
+	return ans;
+}
+double germanGrade(int originalgrade)//germanGrade function for problem 4
+{
+	if (originalgrade < 50)
+		return 5.0;
+	else if (originalgrade < 55)
+		return 4.0;
+	else if (originalgrade < 60)
+		return 3.7;
+	else if (originalgrade < 65)
+		return 3.3;
+	else if (originalgrade < 70)
+		return 3.0;
+	else if (originalgrade < 75)
+		return 2.7;
+	else if (originalgrade < 80)
+		return 2.3;
+	else if (originalgrade < 85)
+		return 2.0;
+	else if (originalgrade < 90)
+		return 1.7;
+	else if (originalgrade < 95)
+		return 1.3;
+	else
+		return 1.0;
+}
+int celsius(int temperatureC)//celsius function for problem5
+{
+	int temperatureF;
+	temperatureF = temperatureC * 9 / 5 + 32;
+	return temperatureF;
+}
+int Fahrenheit(int temperatureF)//farenheit function for problem5
+{
+	int temperatureC;
+	temperatureC = (temperatureF-32)*5/9 ;
+	return temperatureC;
+}
+void problem1()
+{
+	int num;
+	cout << "This is problem 1" << endl;
+	for (int i = 1; i <= 3; i++)
+	{
+		cout << "Enter integer " << i << ":";
+		cin >> num;
+		//cout << endl;
+		if (isEven(num) == 1)
+			cout << num << " is an even integer" << endl;
+		else
+			cout << num << " is an odd integer" << endl;
+		cout << endl;
+	}
+
+}
+void problem2()
+{
+	int _num1, _num2;
+	int i = 1;
+	cout << "This is problem 2" << endl;
+	while(i<4)
+	{
+		cout << "Enter two integers: ";
+		cin >> _num1 >> _num2;
+		if (multiple(_num1, _num2) == 1)
+			cout << _num2 << " is a multiple of " << _num1 << endl;
+		else
+			cout << _num2 << " is not a multiple of " << _num1 << endl;
+		i++;
+	}
+	
+}
+void problem3()
+{
+	double num1, num2;
+	cout << "This is problem 3" << endl;
+	for (int i = 1; i <= 3; i++)
+	{
+		cout << "Enter 2 sides of the right triangle: ";
+		cin >> num1 >> num2;
+		cout << "Hypotenuse: " <<setprecision(2)<< hypotenuse(num1,num2) << endl;
+	}
+}
+void problem4()
+{
+	cout << "This is problem 4" << endl;
+	int grade[11]; 
+	double germangrade[11];
+	for(int i = 0; i <= 10; i++)
+	{
+		cin >> grade[i];
+		germangrade[i]= germanGrade(grade[i]);
+	}
+	for (int j = 0; j <= 10; j++)
+	{
+		cout << grade[j] << " on the German grade scale is " <<fixed<<setprecision(1)<<germangrade[j] << endl;
+	}
+
+}
+void problem5()
+{
+	cout << "Farenheit equivalents of Celsius temperatures: " << endl;
+	for (int j = 1; j <5 ; j++)
+	{
+		cout << "Celsius "<< "Farenheit ";
+	}
+	cout << endl;
+	for (int i = 0; i < 25; i++)
+	{
+		for (int j=0;j<4;j++)
+		{
+			cout << setw(7) << i + j * 25 << setw(10) << celsius(i + j * 25)<<'\0';
+		}
+		cout << endl;
+	}
+	cout << setw(61) << "100" << setw(10) << celsius(100) << endl;
+	cout << "Celsius equivalents of Farenheits temperatures: " << endl;
+	for (int j = 1; j < 5; j++)
+	{
+		cout << "Farenheit " << "Celsius ";
+	}
+	cout << endl;
+	for (int i = 32; i < 77; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			cout << setw(9) << i + j * 45 << setw(8) << Fahrenheit(i + j * 45) << '\0';
+		}
+		cout << endl;
+	}
+	cout << setw(63) << "212" << setw(8) << Fahrenheit(212) << endl;
+}
+int main()
+{
+	int _problem;
+	cout << "I want to run problem: ";
+	cin >> _problem;
+	if(_problem>=1&&_problem<=5)
+	{ 
+		switch (_problem)
+		{
+		case 1:
+			problem1();
+			break;
+		case 2:
+			problem2();
+			break;
+		case 3:
+			problem3();
+			break;
+		case 4:
+			problem4();
+			break;
+		case 5:
+			problem5();
+			break;
+		}
+	}
+
+	system("pause");
+	return 0;
+}
