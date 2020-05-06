@@ -1,0 +1,181 @@
+/****************************
+*Filename:numberguess
+*Date:05.01.2019
+*Author:Chuang, Tzu-Yi
+*matriculation number:4018095
+****************************/
+#include <iostream>
+#include <stdio.h>
+#include <iomanip>
+#include <cstdio>
+#include <fstream>
+#include <string>
+//using namespace std;
+
+std::ifstream cin("input4.txt");
+std::ofstream cout("myoutput4.txt");
+
+const int UpperLimitNumber = 100;
+const int LowerLimitNumber = 1;
+const int UpperLimitTries = 7;
+const int LowerLimitTries = 3;
+using std::endl;
+bool checkNumber(int number)//checkNumber function
+{
+	if (number >= LowerLimitNumber && number <= UpperLimitNumber)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool checkTries(int tries)//checkTries function
+{
+	if (tries >= LowerLimitTries && tries <= UpperLimitTries)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool setupGame(int &numberRef, int &triesRef)//setupGame fuction
+{
+	int number = numberRef;
+	int tries = triesRef;
+	//Loop for number
+	do
+	{
+		cout << "ENTER A NUMBER BETWEEN 1 and 100" << endl;
+		cin.clear();
+		cin >> number;
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cout << "You entered: " << number << endl;
+		numberRef = number;
+		if (cin.eof())
+		{
+			cout << "You do not want to set a number, ";
+			cout << "so you stopped the program" << endl;
+			return false;
+			break;
+		}
+	} while (checkNumber(number) == false);
+	//Loop for tries
+	do
+	{
+		cout << "ENTER TRIES BETWEEN 3 and 7" << endl;
+		cin.clear();
+		cin >> tries;
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		cout << "You entered: " << tries << endl;
+		triesRef = tries;
+		if (cin.eof())
+		{
+			cout << "You do not want to set tries, ";
+			cout << "so you stopped the program" << endl;
+			return false;
+			break;
+		}
+	} while (checkTries(tries) == false);
+
+	return true;
+}
+bool guessNumber(int guessnumber, int correctnumber, int& triesRef)//guessNumber function
+{
+	if (triesRef < 1)
+		return false;
+	if (guessnumber == correctnumber)//guess the correct number
+	{
+		cout << "With the number " << guessnumber;
+		cout << " you guessed the right number and you still had ";
+		cout << triesRef << " tries remaining" << endl;
+		return true;
+	}
+	//guess the wrong number
+	else if (guessnumber > correctnumber)
+	{
+		triesRef = triesRef - 1;
+		cout << "The number you guessed was too big" << endl;
+	}
+	else
+	{
+		triesRef = triesRef - 1;
+		cout << "The number you guessed was too small" << endl;
+	}
+	return false;
+}
+
+int makeAGuess(int correctnumber, int& triesRef)//makeAGuess function
+{
+	int guessnum = 0;
+	cout << "Guess the number" << endl;//input the user's guess
+	cin.clear();
+	cin >> guessnum;
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (cin.eof())
+	{
+		return -1;
+	}
+	return guessNumber(guessnum, correctnumber, triesRef);
+}
+
+int playGame()//playGame function
+{
+	//In this function the real game start
+	int number = 0;
+	int tries = 0;
+	int guess;
+	if (setupGame(number, tries) == false)
+	{
+		cout << "You do not want to play the game" << endl;
+		return -1;
+	}
+	cout << "The guess number is: " << number;
+	cout << " You get " << tries << " tries to find it out" << endl;
+	while (makeAGuess(number, tries) != 1)
+	{
+		cout << "You have " << tries << " tries remaining" << endl;
+		if (tries == 0)
+		{
+			cout << "You ran out of tries" << endl;
+			return 0;
+		}
+		int cont = makeAGuess(number, tries);
+		if (cont == -1)
+		{
+			cout << "You do not want to play the game" << endl;
+			return -1;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	int number = 0, tries = 0, guessnum = 0;
+	int &numberRef = number;
+	int	&triesRef = tries;
+	cin >> number;
+	cout << "Testing checkNumber(): " << number << " as number" << endl;
+	cout << "checkNumber() returned: " << checkNumber(number) << endl;
+	cin >> tries;
+	cout << "Testing checkTries(): " << tries << " as tries" << endl;
+	cout << "checkTries() returned: " << checkTries(tries) << endl;
+	cout << "Testing the function setupGame(): " << endl;
+	setupGame(numberRef, triesRef);
+	cout << "The number to be guessed is: " << numberRef << endl;
+	cout << "The player gets " << triesRef << " tries" << endl;
+	cout << "Enter your guess: " << endl;
+	cin >> guessnum;
+	cout << "Testing guessNumber() with: " << guessnum << " as guess ";
+	cout << "and: " << numberRef << " as correct number and: ";
+	cout << triesRef << " tries" << endl;
+	guessNumber(guessnum, numberRef, triesRef);
+	cout << "Testing playGame(): " << endl;
+	playGame();
+	return 0;
+}
+
+

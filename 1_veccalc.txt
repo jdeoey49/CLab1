@@ -1,0 +1,200 @@
+/****************************
+*Filename:veccalc
+*Date:30.12.2018
+*Author:Chuang, Tzu-Yi
+*matriculation number:4018095
+****************************/
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+vector<int> add(vector<int> a, vector<int> b, bool &status)//add function
+{
+	int i;
+	vector<int> c;
+	for (i = 0; i < a.size(); i++)
+	{
+		c.push_back(a[i] + b[i]);
+	}
+	return c;
+}
+
+vector<int> sub(vector<int> a, vector<int> b, bool &status)//sub function
+{
+	int i;
+	vector<int> c;
+	for (i = 0; i < a.size(); i++)
+	{
+		c.push_back(a[i] - b[i]);
+	}
+	return c;
+}
+
+vector<int> mul(vector<int> a, vector<int> b, bool &status)//mul function
+{
+	int i;
+	vector<int> c;
+	for (i = 0; i < a.size(); i++)
+	{
+		c.push_back(a[i] * b[i]);
+	}
+	return c;
+}
+
+vector<int> div(vector<int> a, vector<int> b, bool &status)//div function
+{
+	int i;
+	vector<int> c;
+	for (i = 0; i < a.size(); i++)
+	{
+		//If one element in the second vector is 0
+		//store the corresponding element in the first vector
+		//into the answer vector.
+		if (b[i] == 0)
+		{
+			c.push_back(a[i]);
+			status = 0;
+		}
+		else
+		{
+			c.push_back(a[i] / b[i]);
+		}
+	}
+	return c;
+}
+
+vector<int> mod(vector<int> a, vector<int> b, bool &status)//mod function
+{
+	int i;
+	vector<int> c;
+	for (i = 0; i < a.size(); i++)
+	{
+		//If one element in the second vector is 0
+		//store the corresponding element in the first vector
+		//into the answer vector.
+		if (b[i] == 0)
+		{
+			c.push_back(a[i]);
+			status = 0;
+		}
+		else
+		{
+			c.push_back(a[i] % b[i]);
+		}
+	}
+	return c;
+}
+
+void display(vector<int> a, vector<int> b, vector<int> c, char t)//display function
+{
+	if (t == '+')
+	{
+		cout << "\ni: Elementwise Sum" << endl;
+		for (int i = 0; i < c.size(); i++)
+		{
+			cout << i << ": " << a[i] << " + " << b[i] << " = " << c[i] << endl;
+		}
+	}
+
+	else if (t == '-')
+	{
+		cout << "\ni: Elementwise Difference" << endl;
+		for (int i = 0; i < c.size(); i++)
+		{
+			cout << i << ": " << a[i] << " - " << b[i] << " = " << c[i] << endl;
+		}
+	}
+
+	else if (t == '*')
+	{
+		cout << "\ni: Elementwise Product" << endl;
+		for (int i = 0; i < c.size(); i++)
+		{
+			cout << i << ": " << a[i] << " * " << b[i] << " = " << c[i] << endl;
+		}
+	}
+	else if (t == '/')
+	{
+		cout << "\ni: Elementwise Quotient" << endl;
+		for (int i = 0; i < c.size(); i++)
+		{
+			cout << i << ": " << a[i] << " / " << b[i] << " = " << c[i] << endl;
+		}
+	}
+	else if (t == '%')
+	{
+		cout << "\ni: Elementwise Mod Operation" << endl;
+		for (int i = 0; i < c.size(); i++)
+		{
+			cout << i << ": " << a[i] << " % " << b[i] << " = " << c[i] << endl;
+		}
+	}
+}
+int main(int argc, char* argv[])
+{
+	vector<int> a;
+	vector<int> b;
+	vector<int> c;
+	int n = (argc - 1) / 2;
+	bool status = 1;
+
+	for (int j = 1; j <= n; j++)
+	{
+		a.push_back(stoi(argv[j]));
+	}//store the first vector
+
+	for (int j = n + 2; j < 2 * n + 2; j++)
+	{
+		b.push_back(stoi(argv[j]));
+	}//store the second vector
+	 //distinguish the symbol
+	if (argv[n + 1][0] == '+')
+	{
+		c = add(a, b, status);
+		display(a, b, c, '+');
+	}
+	else if (argv[n + 1][0] == '-')
+	{
+		c = sub(a, b, status);
+		display(a, b, c, '-');
+	}
+	else if (argv[n + 1][0] == '*')
+	{
+		c = mul(a, b, status);
+		display(a, b, c, '*');
+	}
+	else if (argv[n + 1][0] == '/')
+	{
+		c = div(a, b, status);
+		if (status)//bool value pase by reference to see if 0 occur or not
+		{
+			display(a, b, c, '/');
+		}
+		else
+		{
+			cout << "divison by zero occurred for at least one element." << endl;
+			display(a, b, c, '/');
+		}
+	}
+	else if (argv[n + 1][0] == '%')
+	{
+		c = mod(a, b, status);
+		if (status)//bool value pase by reference to see if 0 occur or not
+		{
+			display(a, b, c, '%');
+		}
+		else
+		{
+			cout << "mod with respect to zero for at least one element." << endl;
+			display(a, b, c, '%');
+		}
+	}
+	else
+	{
+		cout << "Unknown operator! Returning to operating system..." << endl;
+		return (-1);
+	}
+	return 0;
+}
+
+

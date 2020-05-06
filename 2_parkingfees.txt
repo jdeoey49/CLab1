@@ -1,0 +1,72 @@
+/****************************
+*Filename:parkingfees
+*Date:02.01.2019
+*Author:Chuang, Tzu-Yi
+*matriculation number:4018095
+****************************/
+#include<iostream>
+#include<vector>
+#include<string>
+#include<iomanip>
+using namespace std;
+vector<double> calculateCharges(vector<double> hours)//the function to calculate charge
+{
+	double hr,ch;
+	vector<double> charge;
+	for (int i = 0; i<hours.size(); i++)
+	{
+		hr = hours[i];
+		
+		if (hr <= 3.0)
+		{
+			ch = 2.0;
+		}
+		else if (hr>=19)
+		{
+			ch = 10.0;
+		}
+		else
+		{
+			ch = 2 + (hr - 3)*0.5;
+		}
+		charge.push_back(ch);
+	}
+	return charge;
+}
+void displayOverview(vector<double> hours, vector<double> charge)//the function to display output
+{
+	double totalhours = 0, totalcharge = 0;
+	cout << fixed << showpoint;
+
+	cout << setw(5) << "Car" << setw(15) << "Hours"
+	<< setw(15) << "Charge\n";
+
+	for (size_t i = 0; i <hours.size(); i++)
+	{
+		double totalhours = 0, totalcharge = 0;
+		cout << setw(3) << i + 1 << setw(17) << setprecision(1)
+	    << hours[i] << setw(14) << setprecision(2)<< charge[i] << "\n";
+
+	}
+
+	
+	for (int i = 0; i < hours.size(); i++)
+	{
+		totalhours = totalhours + hours[i];
+		totalcharge = totalcharge + charge[i];
+	}
+	cout << setw(7) << "TOTAL" << setw(13) << setprecision(1);
+	cout << setw(13) << totalhours << setprecision(2) << setw(14)<< totalcharge<< setprecision(2) << endl;
+}
+int main(int argc, char* argv[]) 
+{
+	vector<double> hours;
+	vector<double> charge;
+	for (int i = 1; i <argc; i++)
+	{
+		hours.push_back(stod(argv[i]));
+	}
+	charge = calculateCharges(hours);
+	displayOverview(hours,charge);
+	return 0;
+}

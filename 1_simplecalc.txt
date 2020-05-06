@@ -1,0 +1,105 @@
+/****************************
+*Filename:simplecalc
+*Date:29.12.2018
+*Author:Chuang, Tzu-Yi
+*matriculation number:4018095
+****************************/
+#include<iostream>
+#include<string>
+using namespace std;
+int add(int a, int b, bool &i)//add function
+{
+	int ans;
+	ans = a + b;
+	return ans;
+}
+int sub(int a, int b, bool &i)//sub functiion
+{
+	int ans;
+	ans = a - b;
+	return ans;
+}
+int mul(int a, int b, bool &i)//mul function
+{
+	int ans;
+	ans = a * b;
+	return ans;
+}
+int div(int a, int b, bool &i)//div function
+{
+	int ans;
+	if (b == 0)
+	{
+		i = 0;
+		return a;
+	}//If the second number is 0, return the first number.
+	else
+	{
+		i = 1;
+		ans = a / b;
+		return ans;
+	}
+}
+int mod(int a, int b, bool &i)//mod function
+{
+	int ans;
+	if (b == 0)
+	{
+		i = 0;
+		return a;
+	}//If the second number is 0, return the first number.
+	else
+	{
+		i = 1;
+		ans = a % b;
+		return ans;
+	}
+}
+int main(int argc, char *argv[])
+{
+	int a = stoi(argv[1]), b = stoi(argv[3]), ans;
+	bool i = 1;
+	char t = argv[2][0];
+	if (t == '+')
+	{
+		ans = add(a, b, i);
+		cout << a << " " << t << " " << b << " = " << ans << endl;
+	}
+	else if (t == '-')
+	{
+		ans = sub(a, b, i);
+		cout << a << " " << t << " " << b << " = " << ans << endl;
+	}
+	else if (t == '*')
+	{
+		ans = mul(a, b, i);
+		cout << a << " " << t << " " << b << " = " << ans << endl;
+	}
+	else if (t == '/')
+	{
+		ans = div(a, b, i);
+		if (i == 0)//bool value has been passed by reference, 
+			       //hence is changed in both main function and div function.
+		{
+			cout << "Cannot divide by zero" << endl;
+		}
+		else
+		{
+			cout << a << " " << t << " " << b << " = " << ans << endl;
+		}
+	}
+	else if (t == '%')
+	{
+		ans = mod(a, b, i);
+		if (i == 0)//bool value has been passed by reference, 
+			       //hence is changed in both main function and mod function.
+		{
+			cout << "Cannot calculate modulo with respect to 0" << endl;
+		}
+		else
+		{
+			cout << a << " " << t << " " << b << " = " << ans << endl;
+		}
+	}
+	return 0;
+}

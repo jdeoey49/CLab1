@@ -1,0 +1,79 @@
+/****************************
+*Filename:simplestats
+*Date:03.01.2019
+*Author:Chuang, Tzu-Yi
+*matriculation number:4018095
+****************************/
+#include<iostream>
+#include<vector>
+#include<string>
+using namespace std;
+int max(vector<int> number)//the function to find max
+{
+	int maximum = number[0];//set the first number as max
+	for (int k = 1; k < number.size(); k++)
+	{
+		//If the next number is greater than original max
+		//set it as the new max.
+		if (maximum <= number[k])
+			maximum = number[k]; 
+		else
+			maximum = maximum;
+	}
+	return maximum;
+}
+int min(vector<int> number)//the function to find min
+{
+	int minimum = number[0];//set the first number as min
+	for (int k = 1; k < number.size(); k++)
+	{
+		//If the next number is lower than original min
+	    //set it as the new min.
+		if (minimum >= number[k])
+			minimum = number[k];
+		else
+			minimum = minimum;
+	}
+	return minimum;
+}
+int main(int argc, char* argv[])
+{
+	int i=1;
+	int num;
+	bool t=1;
+	int maximum;
+	int minimum;
+	vector<int> number;
+	for (int i = 1; i < argc; i++)
+	{
+		num = stoi(argv[i]);
+		if (num >= 10 && num <= 100)//check if the number is between 10 and 100
+		{
+			for (int k = i; k > 1; k--)
+			{
+				//check all elements before each element
+				//if the same element appear, bool is set to 0
+				//and it will not be saved into the vector.
+				if (num == stoi(argv[k - 1]))
+				{
+					t = 0;
+					break;
+				}
+				else
+					t = 1;
+			}
+			if (t)
+				number.push_back(num);
+		}
+	}
+	maximum = max(number); 
+	minimum = min(number);
+	for (int j = 0; j <number.size(); j++)
+	{
+		cout << number[j] << endl;
+	}
+
+	cout << "minimum: " << minimum << endl; 
+	cout << "maximum: " << maximum << endl;	
+	return 0;
+}
